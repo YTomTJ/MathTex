@@ -21,24 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Utils\KatexParser.cs" />
-    <Compile Remove="Utils\MainViewModel.cs" />
-    <Compile Remove="Utils\MimeParser.cs" />
-    <Compile Remove="Utils\ParserBase.cs" />
-    <Compile Remove="Utils\Raster.cs" />
-    <Compile Remove="Utils\WpfmathParser.cs" />
-    <Compile Remove="winRibbon.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove=".gitignore" />
-    <None Remove="MathTex.exe - 快捷方式.lnk" />
-    <None Remove="Res\sum.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="FormulaElement.xaml" />
-    <Page Remove="winRibbon.xaml" />
   </ItemGroup>
 
   <ItemGroup>
