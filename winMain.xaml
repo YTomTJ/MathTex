@@ -1,0 +1,348 @@
+﻿<Fluent:RibbonWindow x:Class="MathTex.winMain"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:system="clr-namespace:System;assembly=mscorlib"
+                     xmlns:util="clr-namespace:MathTex.Utils"
+                     xmlns:img="clr-namespace:MathTex.Images;assembly=MathTexImages"
+                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+                     Title="MathEditor"
+                     Width="800" MinWidth="360" Height="640" MinHeight="300" 
+                     WindowStartupLocation="CenterScreen"
+                     VerticalIconAlignment="Center"
+                     Style="{StaticResource MyRibbonWindowStyle}"
+                     Icon="{img:UriImage '/icons/mathtex/sum.png'}">
+
+    <!-- This not work in netcoreapp3.1 framework, could using C# code. -->
+    <!-- d:DataContext="{d:DesignInstance utils:MainViewModel, IsDesignTimeCreatable=True}" -->
+    
+    <Fluent:RibbonWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary x:Name="UI">
+                    <system:String x:Key="UI.BackstageMenu">文件</system:String>
+                    <system:String x:Key="UI.BackstageMenu.Open">打开</system:String>
+                    <system:String x:Key="UI.BackstageMenu.New">新建</system:String>
+                    <system:String x:Key="UI.BackstageMenu.Export">导出</system:String>
+                    <system:String x:Key="UI.BackstageMenu.Info">信息</system:String>
+                    <system:String x:Key="UI.BackstageMenu.Exit">退出</system:String>
+
+                    <system:String x:Key="UI.Main">主页</system:String>
+                    <system:String x:Key="UI.Main.Clip">剪贴板</system:String>
+                    <system:String x:Key="UI.Main.Clip.Paste">粘贴</system:String>
+                    <system:String x:Key="UI.Main.Clip.Copy">复制</system:String>
+                    <system:String x:Key="UI.Main.Clip.Cut">剪切</system:String>
+                    <system:String x:Key="UI.Main.Clip.Clear">清楚</system:String>
+                    <system:String x:Key="UI.Main.Export">数据</system:String>
+                    <system:String x:Key="UI.Main.Export.Load">加载</system:String>
+                    <system:String x:Key="UI.Main.Export.UnLoad">卸载</system:String>
+                    <system:String x:Key="UI.Main.Operation">操作</system:String>
+                    <system:String x:Key="UI.Main.Operation.Add">添加</system:String>
+                    <system:String x:Key="UI.Main.Operation.Delete">删除</system:String>
+                    <system:String x:Key="UI.Main.Operation.Query">查询</system:String>
+                    <system:String x:Key="UI.Main.Operation.Modify">修改</system:String>
+
+                    <system:String x:Key="UI.Account">账户</system:String>
+                    <system:String x:Key="UI.Account_Manage">管理</system:String>
+                    <system:String x:Key="UI.Account_Manage_AccInfo">账户信息</system:String>
+                    <system:String x:Key="UI.Account_Manage_ChangePwd">修改密码</system:String>
+                    <system:String x:Key="UI.Account_Manage_ChangeSQ">修改密保</system:String>
+                    <system:String x:Key="UI.Account_Safety">安全</system:String>
+                    <system:String x:Key="UI.Account_Safety_Lock">锁定</system:String>
+
+                    <system:String x:Key="UI.Setting">选项</system:String>
+                    <system:String x:Key="UI.Setting_Preference">首选项</system:String>
+                    <system:String x:Key="UI.Setting_Preference_Panel">设置</system:String>
+                </ResourceDictionary>-->
+
+                <ResourceDictionary x:Name="UI">
+                    <system:String x:Key="UI.BackstageMenu">File</system:String>
+                    <system:String x:Key="UI.BackstageMenu.Open">Open</system:String>
+                    <system:String x:Key="UI.BackstageMenu.New">New</system:String>
+                    <system:String x:Key="UI.BackstageMenu.Export">Export</system:String>
+                    <system:String x:Key="UI.BackstageMenu.Info">Info</system:String>
+                    <system:String x:Key="UI.BackstageMenu.Exit">Exit</system:String>
+
+                    <system:String x:Key="UI.Main">Home</system:String>
+                    <system:String x:Key="UI.Main.Clip">Paste</system:String>
+                    <system:String x:Key="UI.Main.Clip.Paste">Paste</system:String>
+                    <system:String x:Key="UI.Main.Clip.Copy">Copy</system:String>
+                    <system:String x:Key="UI.Main.Clip.Cut">Cut</system:String>
+                    <system:String x:Key="UI.Main.Clip.Clear">Clear</system:String>
+                    <system:String x:Key="UI.Main.Export">Export</system:String>
+                    <system:String x:Key="UI.Main.Export.PNG">PNG</system:String>
+                    <system:String x:Key="UI.Main.Export.SVG">SVG</system:String>
+                    <system:String x:Key="UI.Main.Export.Clip">Clipboard</system:String>
+                    <system:String x:Key="UI.Main.Operation">Operations</system:String>
+                    <system:String x:Key="UI.Main.Operation.Convert">Convert</system:String>
+
+                    <system:String x:Key="UI.Formula">Formula</system:String>
+                    <system:String x:Key="UI.Formula.Design">Design</system:String>
+                </ResourceDictionary>
+
+                <ResourceDictionary>
+                    <!--Theme of the latex symbol item-->
+                    <Style x:Key="PasteItemStyle" TargetType="{x:Type Button}">
+                        <Setter Property="MinHeight" Value="32" />
+                        <Setter Property="Width" Value="200" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Grid x:Name="grid">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" Background="DarkGray" Padding="1" FontWeight="Bold"
+                                               Content="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ToolTip}" />
+                                        <Label Grid.Row="1" Background="Transparent"
+                                               Content="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Tag}" />
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Background" TargetName="grid" Value="#802A579A"/>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsPressed" Value="False" />
+                                                <Condition Property="IsMouseOver" Value="True" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="grid" Value="#302A579A"/>
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <!--Theme of the latex symbol item-->
+                    <Style x:Key="FormulaItemStyle" TargetType="{x:Type Button}">
+                        <Setter Property="MinWidth" Value="32" />
+                        <Setter Property="MinHeight" Value="32" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Grid>
+                                        <Rectangle x:Name="background"></Rectangle>
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Fill" TargetName="background" Value="#802A579A"/>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsPressed" Value="False" />
+                                                <Condition Property="IsMouseOver" Value="True" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Fill" TargetName="background" Value="#302A579A"/>
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Fluent:RibbonWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Fluent:Ribbon Background="Transparent" Margin="0,0,0,-1">
+
+            <Fluent:Ribbon.Menu>
+                <Grid>
+                    <Fluent:Backstage Header="{StaticResource UI.BackstageMenu}" KeyTip="F" Width="64">
+                        <Fluent:BackstageTabControl>
+                            <Fluent:Button Header="{StaticResource UI.BackstageMenu.Open}" KeyTip="O" 
+                                           Icon="{iconPacks:MaterialDesign Kind=Folder}" IsDefinitive="False" 
+                                           Command="" />
+                            <Fluent:Button Header="{StaticResource UI.BackstageMenu.New}" KeyTip="N" 
+                                           Icon="{iconPacks:MaterialDesign Kind=CreateNewFolder}" IsDefinitive="False" 
+                                           Command="" />
+                            <Fluent:Button Header="{StaticResource UI.BackstageMenu.Export}" KeyTip="E" 
+                                           Icon="{iconPacks:MaterialDesign Kind=FormatIndentIncrease}" IsDefinitive="False" 
+                                           Command="" />
+                            <Fluent:SeparatorTabItem />
+                            <Fluent:Button Header="{StaticResource UI.BackstageMenu.Info}" KeyTip="I"
+                                           Icon="{iconPacks:MaterialDesign Kind=Info}" IsDefinitive="False"  />
+
+                            <Fluent:Button Header="{StaticResource UI.BackstageMenu.Exit}" KeyTip="Q"
+                                           Icon="{iconPacks:MaterialDesign Kind=Close}" 
+                                           Command="{Binding ExitCommand}" />
+                        </Fluent:BackstageTabControl>
+                    </Fluent:Backstage>
+                </Grid>
+            </Fluent:Ribbon.Menu>
+
+            <Fluent:RibbonTabItem Header="{StaticResource UI.Main}" KeyTip="M" Margin="0,-1,0,0" Width="64">
+
+                <Fluent:RibbonGroupBox Header="{StaticResource UI.Main.Clip}">
+
+                    <Fluent:SplitButton Header="{StaticResource UI.Main.Clip.Paste}" 
+                                        Icon="{img:UriImage '/icons/colorline/paste2.png'}"
+                                        LargeIcon="{img:UriImage '/icons/colorline/paste2.png'}"
+                                        SizeDefinition="Large, Large, Middle" 
+                                        Command="{Binding cInputPaste}"
+                                        DropDownOpened="PasteItems_ContextMenuOpening"
+                                        DropDownClosed="PasteItems_ContextMenuClosing">
+                        <ScrollViewer MaxWidth="320" MaxHeight="300"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Auto">
+                            <StackPanel Orientation="Vertical">
+                                <WrapPanel x:Name="PasteItems">
+                                <!--Add by code-->
+                                </WrapPanel>
+                                <Button Content="Clear" Width="200"
+                                        Background="Transparent"
+                                        Click="OnPasteItemClearClick"></Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Fluent:SplitButton>
+
+
+                    <Fluent:Button Header="{StaticResource UI.Main.Clip.Cut}"
+                                   SizeDefinition="Middle, Small, Small" 
+                                   Icon="{img:UriImage '/icons/colorline/scissors.png'}"
+                                   LargeIcon="{img:UriImage '/icons/colorline/scissors.png'}" 
+                                   Command="{Binding cInputCut}"/>
+                    <Fluent:Button Header="{StaticResource UI.Main.Clip.Copy}"
+                                   SizeDefinition="Middle, Small, Small"
+                                   Icon="{img:UriImage '/icons/colorline/copy2.png'}"
+                                   LargeIcon="{img:UriImage '/icons/colorline/copy2.png'}" 
+                                   Command="{Binding cInputCopy}"/>
+                    <Fluent:Button Header="{StaticResource UI.Main.Clip.Clear}"
+                                   SizeDefinition="Middle, Small, Small" 
+                                   Icon="{img:UriImage '/icons/colorline/trash_can.png'}"
+                                   LargeIcon="{img:UriImage '/icons/colorline/trash_can.png'}" 
+                                   Command="{Binding cInputClear}"/>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="{StaticResource UI.Main.Export}">
+                    <Fluent:Button Header="{StaticResource UI.Main.Export.PNG}" 
+                                   Icon="{img:UriImage '/icons/filetypes/png/png.png'}"
+                                   LargeIcon="{img:UriImage '/icons/filetypes/png/png.png'}"
+                                   SizeDefinition="Large, Large, Middle"
+                                   Command="{Binding cSaveToPng}" />
+                    <Fluent:Button Header="{StaticResource UI.Main.Export.SVG}"
+                                   SizeDefinition="Large, Large, Middle" 
+                                   Icon="{img:UriImage '/icons/filetypes/png/svg.png'}"
+                                   LargeIcon="{img:UriImage '/icons/filetypes/png/svg.png'}" 
+                                   Command="{Binding cSaveToSvg}"/>
+                    <Fluent:Button Header="{StaticResource UI.Main.Export.Clip}"
+                                   SizeDefinition="Large, Large, Middle" 
+                                   Icon="{img:UriImage '/icons/colorline/clipboard.png'}"
+                                   LargeIcon="{img:UriImage '/icons/colorline/clipboard.png'}" 
+                                   Command="{Binding cCopyToClipboard}"/>
+                </Fluent:RibbonGroupBox> 
+
+                <Fluent:RibbonGroupBox Header="{StaticResource UI.Main.Operation}">
+                    <Fluent:Button Header="{StaticResource UI.Main.Operation.Convert}"
+                                   SizeDefinition="Large, Large, Middle" 
+                                   Icon="{img:UriImage '/icons/colorline/refresh.png'}"
+                                   LargeIcon="{img:UriImage '/icons/colorline/refresh.png'}" 
+                                   Command="{Binding cConvertFormula}"/>
+                    <Separator/>
+                </Fluent:RibbonGroupBox>
+
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="{StaticResource UI.Formula}" KeyTip="A" Margin="0,-1,0,0" Width="64">
+                <Fluent:RibbonGroupBox x:Name="ribGroupFormula" Header="{StaticResource UI.Formula.Design}">
+                    <!--TODO: Add by code-->
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            
+            <!--<Fluent:Ribbon.ContextualGroups>
+                <Fluent:RibbonContextualTabGroup Header="Tools" Visibility="Visible" 
+                                                 Background="Green" BorderBrush="Green" />
+            </Fluent:Ribbon.ContextualGroups>-->
+
+        </Fluent:Ribbon>
+
+        <!--region #DisplayFormula-->
+        <Grid Grid.Row="1" Margin="1.5,2,1.5,1" Background="#FFF3F0F0" >
+            <Image x:Name="outputMath" Stretch="None" />
+        </Grid>
+        <!--endregion #DisplayFormula-->
+
+        <!--region #InputFormula-->
+        <Grid Grid.Row="2" Margin="1.5,1,1.5,2" Background="LightGreen">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!--<ColumnDefinition Width="0.1*"/>-->
+                <!--<ColumnDefinition Width="{Binding ElementName=grid, Path=ActualHeight}"/>-->
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="txtInputFomula" Grid.Column="0" Height="160"
+                     TextWrapping="Wrap" AcceptsReturn="True" 
+                     ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                     FontFamily="Consolas" FontSize="16"
+                     Margin="1,1,2,1" Padding="3" Background="#96FFFFFF"
+                     BorderBrush="DarkGray" BorderThickness="0" >
+            </TextBox>
+
+            <!--TODO:<Grid Grid.Column="1" >
+                <Grid.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFE8BD8A" Offset="1"/>
+                        <GradientStop Color="White"/>
+                    </RadialGradientBrush>
+                </Grid.Background>
+                <dx:DXImage Stretch="Fill"
+                            Source="{dx:DXImage 'SvgImages/Dashboards/ConvertTo.svg'}" />
+            </Grid>-->
+        </Grid>
+        <!--endregion #InputFormula-->
+
+        <!--region #OuputInfo-->
+        <Grid Grid.Row="3" Margin="1.5,1,1.5,2" Background="Wheat">
+            <TextBox x:Name="txtOutpuInfo" Height="54"
+                     TextWrapping="Wrap" AcceptsReturn="True" 
+                     ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                     FontSize="12" IsReadOnly="True"
+                     Margin="2,2,3,2" Padding="3" Background="#96FFFFFF"
+                     BorderBrush="DarkGray" BorderThickness="0">
+            </TextBox>
+        </Grid>
+        <!--endregion #OuputInfo-->
+
+        <Fluent:StatusBar Grid.Row="4" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
+
+            <Fluent:StatusBarItem HorizontalAlignment="Left" Margin="10,0,0,0" />
+
+            <Fluent:StatusBarItem HorizontalAlignment="Left" 
+                                  Value="{Binding UsedMemory, StringFormat='{}Mem: {0:##\,000} KB'}" />
+            <Separator HorizontalAlignment="Left" />
+
+            <Fluent:StatusBarItem HorizontalAlignment="Right">
+                <Slider x:Name="zoomSlider" Value="{Binding FormulaZoom}"
+                        ValueChanged="zoomSlider_ValueChanged" 
+                        Minimum="0.2" Maximum="5" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.1" 
+                        IsDirectionReversed="False" IsSnapToTickEnabled="True"
+                        Style="{DynamicResource ZoomSliderStyle}" />
+            </Fluent:StatusBarItem>
+            <Separator HorizontalAlignment="Right" />
+
+            <Fluent:StatusBarItem HorizontalAlignment="Right"
+                                  MouseDown="StatusBarItem_MouseDown"
+                                  Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:F}}" />
+            <Separator HorizontalAlignment="Right" />
+            
+        </Fluent:StatusBar>
+    </Grid>
+
+</Fluent:RibbonWindow>

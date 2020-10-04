@@ -1,0 +1,697 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:sysg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+                    xmlns:util="clr-namespace:MathTex.Utils" >
+
+    <ResourceDictionary.MergedDictionaries>
+        
+        <!-- FE = ForlumaElement -->
+        <ResourceDictionary>
+            <x:Array Type="{x:Type util:LatexGroup}" x:Key="FE.Items">
+                <util:LatexGroup Name="Symbol" IconName="e_symbol" />
+                <util:LatexGroup Name="Greek" IconName="e_greek" />
+                <util:LatexGroup Name="Frac" IconName="e_frac" />
+                <util:LatexGroup Name="Root" IconName="e_sqrt" />
+                <util:LatexGroup Name="Limit" IconName="e_limit" />
+                <util:LatexGroup Name="Function" IconName="e_trig" />
+                <util:LatexGroup Name="Integral" IconName="e_integral" />
+                <util:LatexGroup Name="Sum" IconName="e_sum" />
+                <util:LatexGroup Name="Bracket" IconName="e_bracket" />
+                <util:LatexGroup Name="Array" IconName="e_matrix" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Symbol.Items">
+                <sys:String>Binary</sys:String>
+                <sys:String>Arrow</sys:String>
+                <sys:String>Miscellaneous</sys:String>
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Symbol.Binary">
+                <util:LatexSymbol Name="\Box" Id="1" />
+                <util:LatexSymbol Name="\Bumpeq" Id="1" />
+                <util:LatexSymbol Name="\Cap" Id="1" />
+                <util:LatexSymbol Name="\Cup" Id="1" />
+                <util:LatexSymbol Name="\Join" Id="1" />
+                <util:LatexSymbol Name="\Subset" Id="1" />
+                <util:LatexSymbol Name="\Supset" Id="1" />
+                <util:LatexSymbol Name="\Vdash" Id="1" />
+                <util:LatexSymbol Name="\Vvdash" Id="1" />
+                <util:LatexSymbol Name="\amalg" />
+                <util:LatexSymbol Name="\approx" />
+                <util:LatexSymbol Name="\approxeq" />
+                <util:LatexSymbol Name="\ast" />
+                <util:LatexSymbol Name="\asymp" />
+                <util:LatexSymbol Name="\backepsilon" />
+                <util:LatexSymbol Name="\backsim" />
+                <util:LatexSymbol Name="\backsimeq" />
+                <util:LatexSymbol Name="\barwedge" />
+                <util:LatexSymbol Name="\because" />
+                <util:LatexSymbol Name="\between" />
+                <util:LatexSymbol Name="\bigcirc" />
+                <util:LatexSymbol Name="\bigtriangledown" />
+                <util:LatexSymbol Name="\bigtriangleup" />
+                <util:LatexSymbol Name="\blacktriangleleft" />
+                <util:LatexSymbol Name="\blacktriangleright" />
+                <util:LatexSymbol Name="\bot" />
+                <util:LatexSymbol Name="\bowtie" />
+                <util:LatexSymbol Name="\boxdot" />
+                <util:LatexSymbol Name="\boxminus" />
+                <util:LatexSymbol Name="\boxplus" />
+                <util:LatexSymbol Name="\boxtimes" />
+                <util:LatexSymbol Name="\bullet" />
+                <util:LatexSymbol Name="\bumpeq"/>
+                <util:LatexSymbol Name="\cap"/>
+                <util:LatexSymbol Name="\cdot" />
+                <util:LatexSymbol Name="\centerdot" />
+                <util:LatexSymbol Name="\circ" />
+                <util:LatexSymbol Name="\circeq" />
+                <util:LatexSymbol Name="\circledast" />
+                <util:LatexSymbol Name="\circledcirc" />
+                <util:LatexSymbol Name="\circleddash" />
+                <util:LatexSymbol Name="\cong" />
+                <util:LatexSymbol Name="\cup"/>
+                <util:LatexSymbol Name="\curlyeqprec" />
+                <util:LatexSymbol Name="\curlyeqsucc" />
+                <util:LatexSymbol Name="\curlyvee" />
+                <util:LatexSymbol Name="\curlywedge" />
+                <util:LatexSymbol Name="\dagger" />
+                <util:LatexSymbol Name="\dashv" />
+                <util:LatexSymbol Name="\ddagger" />
+                <util:LatexSymbol Name="\diamond"/>
+                <util:LatexSymbol Name="\div" />
+                <util:LatexSymbol Name="\divideontimes" />
+                <util:LatexSymbol Name="\doteq" />
+                <util:LatexSymbol Name="\doteqdot" />
+                <util:LatexSymbol Name="\dotplus" />
+                <util:LatexSymbol Name="\doublebarwedge" />
+                <util:LatexSymbol Name="\eqcirc" />
+                <util:LatexSymbol Name="\eqslantgtr" />
+                <util:LatexSymbol Name="\eqslantless" />
+                <util:LatexSymbol Name="\equiv" />
+                <util:LatexSymbol Name="\fallingdotseq" />
+                <util:LatexSymbol Name="\frown" />
+                <util:LatexSymbol Name="\geq" />
+                <util:LatexSymbol Name="\geqq" />
+                <util:LatexSymbol Name="\geqslant" />
+                <util:LatexSymbol Name="\gg" />
+                <util:LatexSymbol Name="\ggg" />
+                <util:LatexSymbol Name="\gnapprox" />
+                <util:LatexSymbol Name="\gneq" />
+                <util:LatexSymbol Name="\gneqq" />
+                <util:LatexSymbol Name="\gnsim" />
+                <util:LatexSymbol Name="\gtrapprox" />
+                <util:LatexSymbol Name="\gtrdot" />
+                <util:LatexSymbol Name="\gtreqless" />
+                <util:LatexSymbol Name="\gtreqqless" />
+                <util:LatexSymbol Name="\gtrless" />
+                <util:LatexSymbol Name="\gtrsim" />
+                <util:LatexSymbol Name="\gvertneqq" />
+                <util:LatexSymbol Name="\in" />
+                <util:LatexSymbol Name="\intercal" />
+                <util:LatexSymbol Name="\leftthreetimes" />
+                <util:LatexSymbol Name="\leq" />
+                <util:LatexSymbol Name="\leqq" />
+                <util:LatexSymbol Name="\leqslant" />
+                <util:LatexSymbol Name="\lessapprox" />
+                <util:LatexSymbol Name="\lessdot" />
+                <util:LatexSymbol Name="\lesseqgtr" />
+                <util:LatexSymbol Name="\lesseqqgtr" />
+                <util:LatexSymbol Name="\lessgtr" />
+                <util:LatexSymbol Name="\lesssim" />
+                <util:LatexSymbol Name="\lhd" />
+                <util:LatexSymbol Name="\ll" />
+                <util:LatexSymbol Name="\lll" />
+                <util:LatexSymbol Name="\lnapprox" />
+                <util:LatexSymbol Name="\lneq" />
+                <util:LatexSymbol Name="\lneqq" />
+                <util:LatexSymbol Name="\lnsim" />
+                <util:LatexSymbol Name="\ltimes" />
+                <util:LatexSymbol Name="\lvertneqq" />
+                <util:LatexSymbol Name="\mid" />
+                <util:LatexSymbol Name="\models" />
+                <util:LatexSymbol Name="\mp" />
+                <util:LatexSymbol Name="\ncong" />
+                <util:LatexSymbol Name="\neq" />
+                <util:LatexSymbol Name="\ngeq" />
+                <util:LatexSymbol Name="\ngeqq" />
+                <util:LatexSymbol Name="\ngeqslant" />
+                <util:LatexSymbol Name="\ngtr" />
+                <util:LatexSymbol Name="\ni" />
+                <util:LatexSymbol Name="\nleq" />
+                <util:LatexSymbol Name="\nleqq" />
+                <util:LatexSymbol Name="\nleqslant" />
+                <util:LatexSymbol Name="\nless" />
+                <util:LatexSymbol Name="\nmid" />
+                <util:LatexSymbol Name="\notin" />
+                <util:LatexSymbol Name="\nparallel" />
+                <util:LatexSymbol Name="\nprec" />
+                <util:LatexSymbol Name="\npreceq" />
+                <util:LatexSymbol Name="\nshortmid" />
+                <util:LatexSymbol Name="\nshortparallel" />
+                <util:LatexSymbol Name="\nsim" />
+                <util:LatexSymbol Name="\nsubseteq" />
+                <util:LatexSymbol Name="\nsubseteqq" />
+                <util:LatexSymbol Name="\nsucc" />
+                <util:LatexSymbol Name="\nsucceq" />
+                <util:LatexSymbol Name="\nsupseteq" />
+                <util:LatexSymbol Name="\nsupseteqq" />
+                <util:LatexSymbol Name="\ntriangleleft" />
+                <util:LatexSymbol Name="\ntrianglelefteq" />
+                <util:LatexSymbol Name="\ntriangleright" />
+                <util:LatexSymbol Name="\ntrianglerighteq" />
+                <util:LatexSymbol Name="\nvDash" Id="1" />
+                <util:LatexSymbol Name="\nvdash" />
+                <util:LatexSymbol Name="\odot" />
+                <util:LatexSymbol Name="\ominus" />
+                <util:LatexSymbol Name="\oplus" />
+                <util:LatexSymbol Name="\oslash" />
+                <util:LatexSymbol Name="\otimes" />
+                <util:LatexSymbol Name="\parallel" />
+                <util:LatexSymbol Name="\perp" />
+                <util:LatexSymbol Name="\pitchfork" />
+                <util:LatexSymbol Name="\pm" />
+                <util:LatexSymbol Name="\prec" />
+                <util:LatexSymbol Name="\precapprox" />
+                <util:LatexSymbol Name="\preccurlyeq" />
+                <util:LatexSymbol Name="\preceq" />
+                <util:LatexSymbol Name="\precnapprox" />
+                <util:LatexSymbol Name="\precnsim" />
+                <util:LatexSymbol Name="\precsim" />
+                <util:LatexSymbol Name="\propto" />
+                <util:LatexSymbol Name="\rhd" />
+                <util:LatexSymbol Name="\rightthreetimes" />
+                <util:LatexSymbol Name="\risingdotseq" />
+                <util:LatexSymbol Name="\rtimes" />
+                <util:LatexSymbol Name="\setminus" />
+                <util:LatexSymbol Name="\shortmid" />
+                <util:LatexSymbol Name="\shortparallel" />
+                <util:LatexSymbol Name="\sim" />
+                <util:LatexSymbol Name="\simeq" />
+                <util:LatexSymbol Name="\smallfrown" />
+                <util:LatexSymbol Name="\smallsmile" />
+                <util:LatexSymbol Name="\smile" />
+                <util:LatexSymbol Name="\sqcap" />
+                <util:LatexSymbol Name="\sqcup" />
+                <util:LatexSymbol Name="\sqsubset" />
+                <util:LatexSymbol Name="\sqsubseteq" />
+                <util:LatexSymbol Name="\sqsupset" />
+                <util:LatexSymbol Name="\sqsupseteq" />
+                <util:LatexSymbol Name="\square" />
+                <util:LatexSymbol Name="\star" />
+                <util:LatexSymbol Name="\subset" />
+                <util:LatexSymbol Name="\subseteq" />
+                <util:LatexSymbol Name="\subseteqq" />
+                <util:LatexSymbol Name="\subsetneq" />
+                <util:LatexSymbol Name="\subsetneqq" />
+                <util:LatexSymbol Name="\succ" />
+                <util:LatexSymbol Name="\succapprox" />
+                <util:LatexSymbol Name="\succcurlyeq" />
+                <util:LatexSymbol Name="\succeq" />
+                <util:LatexSymbol Name="\succnapprox" />
+                <util:LatexSymbol Name="\succnsim" />
+                <util:LatexSymbol Name="\succsim" />
+                <util:LatexSymbol Name="\supset" />
+                <util:LatexSymbol Name="\supseteq" />
+                <util:LatexSymbol Name="\supseteqq" />
+                <util:LatexSymbol Name="\supsetneq" />
+                <util:LatexSymbol Name="\supsetneqq" />
+                <util:LatexSymbol Name="\therefore" />
+                <util:LatexSymbol Name="\thickapprox" />
+                <util:LatexSymbol Name="\thicksim" />
+                <util:LatexSymbol Name="\times" />
+                <util:LatexSymbol Name="\top" />
+                <util:LatexSymbol Name="\triangleleft" />
+                <util:LatexSymbol Name="\trianglelefteq" />
+                <util:LatexSymbol Name="\triangleq" />
+                <util:LatexSymbol Name="\triangleright" />
+                <util:LatexSymbol Name="\trianglerighteq" />
+                <util:LatexSymbol Name="\unlhd" />
+                <util:LatexSymbol Name="\uplus" />
+                <util:LatexSymbol Name="\varpropto" />
+                <util:LatexSymbol Name="\varsubsetneq" />
+                <util:LatexSymbol Name="\varsubsetneqq" />
+                <util:LatexSymbol Name="\varsupsetneq" />
+                <util:LatexSymbol Name="\varsupsetneqq" />
+                <util:LatexSymbol Name="\vartriangleleft" />
+                <util:LatexSymbol Name="\vartriangleright" />
+                <util:LatexSymbol Name="\vee" />
+                <util:LatexSymbol Name="\veebar" />
+                <util:LatexSymbol Name="\wedge" />
+                <util:LatexSymbol Name="\wr" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Symbol.Arrow">
+                <util:LatexSymbol Name="\Leftarrow" Id="1" />
+                <util:LatexSymbol Name="\Leftrightarrow" Id="1" />
+                <util:LatexSymbol Name="\Lleftarrow" Id="1" />
+                <util:LatexSymbol Name="\Longleftarrow" Id="1" />
+                <util:LatexSymbol Name="\Longleftrightarrow" Id="1" />
+                <util:LatexSymbol Name="\Longrightarrow" Id="1" />
+                <util:LatexSymbol Name="\Lsh" Id="1" />
+                <util:LatexSymbol Name="\Rightarrow" Id="1" />
+                <util:LatexSymbol Name="\Rsh" Id="1" />
+                <util:LatexSymbol Name="\Updownarrow" Id="1" />
+                <util:LatexSymbol Name="\circlearrowleft" />
+                <util:LatexSymbol Name="\circlearrowright" />
+                <util:LatexSymbol Name="\curvearrowleft" />
+                <util:LatexSymbol Name="\curvearrowright" />
+                <util:LatexSymbol Name="\dashleftarrow" />
+                <util:LatexSymbol Name="\dashrightarrow" />
+                <util:LatexSymbol Name="\downdownarrows" />
+                <util:LatexSymbol Name="\downharpoonleft" />
+                <util:LatexSymbol Name="\downharpoonright" />
+                <util:LatexSymbol Name="\hookleftarrow" />
+                <util:LatexSymbol Name="\hookrightarrow" />
+                <util:LatexSymbol Name="\leadsto" />
+                <util:LatexSymbol Name="\leftarrowtail" />
+                <util:LatexSymbol Name="\leftharpoondown" />
+                <util:LatexSymbol Name="\leftharpoonup" />
+                <util:LatexSymbol Name="\leftleftarrows" />
+                <util:LatexSymbol Name="\leftrightarrow" />
+                <util:LatexSymbol Name="\leftrightarrows" />
+                <util:LatexSymbol Name="\leftrightharpoons" />
+                <util:LatexSymbol Name="\leftrightsquigarrow" />
+                <util:LatexSymbol Name="\longleftarrow" />
+                <util:LatexSymbol Name="\longleftrightarrow" />
+                <util:LatexSymbol Name="\longmapsto" />
+                <util:LatexSymbol Name="\longrightarrow" />
+                <util:LatexSymbol Name="\looparrowleft" />
+                <util:LatexSymbol Name="\looparrowright" />
+                <util:LatexSymbol Name="\mapsto" />
+                <util:LatexSymbol Name="\multimap" />
+                <util:LatexSymbol Name="\nLeftarrow" Id="1" />
+                <util:LatexSymbol Name="\nLeftrightarrow" Id="1" />
+                <util:LatexSymbol Name="\nRightarrow" Id="1" />
+                <util:LatexSymbol Name="\nearrow" />
+                <util:LatexSymbol Name="\nleftarrow" />
+                <util:LatexSymbol Name="\nleftrightarrow" />
+                <util:LatexSymbol Name="\nrightarrow" />
+                <util:LatexSymbol Name="\nwarrow" />
+                <util:LatexSymbol Name="\rightarrow" />
+                <util:LatexSymbol Name="\rightarrowtail" />
+                <util:LatexSymbol Name="\rightharpoondown" />
+                <util:LatexSymbol Name="\rightharpoonup" />
+                <util:LatexSymbol Name="\rightleftarrows" />
+                <util:LatexSymbol Name="\rightleftharpoons" />
+                <util:LatexSymbol Name="\rightrightarrows" />
+                <util:LatexSymbol Name="\rightsquigarrow" />
+                <util:LatexSymbol Name="\searrow" />
+                <util:LatexSymbol Name="\swarrow" />
+                <util:LatexSymbol Name="\twoheadleftarrow" />
+                <util:LatexSymbol Name="\twoheadrightarrow" />
+                <util:LatexSymbol Name="\updownarrow" />
+                <util:LatexSymbol Name="\upharpoonleft" />
+                <util:LatexSymbol Name="\upharpoonright" />
+                <util:LatexSymbol Name="\upuparrows" />
+                <util:LatexSymbol Name="\leftarrow" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Symbol.Miscellaneous">
+                <util:LatexSymbol Name="\Bbbk" Id="1" />
+                <util:LatexSymbol Name="\Diamond" Id="1"/>
+                <util:LatexSymbol Name="\Finv" Id="1" />
+                <util:LatexSymbol Name="\Game" Id="1" />
+                <util:LatexSymbol Name="\Im" Id="1" />
+                <util:LatexSymbol Name="\Re" Id="1" />
+                <util:LatexSymbol Name="\angle" />
+                <util:LatexSymbol Name="\backprime" />
+                <util:LatexSymbol Name="\bigstar" />
+                <util:LatexSymbol Name="\blacklozenge" />
+                <util:LatexSymbol Name="\blacksquare" />
+                <util:LatexSymbol Name="\blacktriangle" />
+                <util:LatexSymbol Name="\cdots" />
+                <util:LatexSymbol Name="\circledS" />
+                <util:LatexSymbol Name="\clubsuit" />
+                <util:LatexSymbol Name="\complement" />
+                <util:LatexSymbol Name="\ddots" />
+                <util:LatexSymbol Name="\diagdown" />
+                <util:LatexSymbol Name="\diagup" />
+                <util:LatexSymbol Name="\diamondsuit" />
+                <util:LatexSymbol Name="\ell" />
+                <util:LatexSymbol Name="\emptyset" />
+                <util:LatexSymbol Name="\eth" />
+                <util:LatexSymbol Name="\exists" />
+                <util:LatexSymbol Name="\flat" />
+                <util:LatexSymbol Name="\forall" />
+                <util:LatexSymbol Name="\hbar" />
+                <util:LatexSymbol Name="\heartsuit" />
+                <util:LatexSymbol Name="\hslash" />
+                <util:LatexSymbol Name="\imath" />
+                <util:LatexSymbol Name="\infty" />
+                <util:LatexSymbol Name="\jmath" />
+                <util:LatexSymbol Name="\ldots" />
+                <util:LatexSymbol Name="\lozenge" />
+                <util:LatexSymbol Name="\measuredangle" />
+                <util:LatexSymbol Name="\mho" />
+                <util:LatexSymbol Name="\nabla" />
+                <util:LatexSymbol Name="\natural" />
+                <util:LatexSymbol Name="\nexists" />
+                <util:LatexSymbol Name="\partial" />
+                <util:LatexSymbol Name="\prime" />
+                <util:LatexSymbol Name="\sharp" />
+                <util:LatexSymbol Name="\spadesuit" />
+                <util:LatexSymbol Name="\sphericalangle" />
+                <util:LatexSymbol Name="\surd" />
+                <util:LatexSymbol Name="\triangle" />
+                <util:LatexSymbol Name="\triangledown" />
+                <util:LatexSymbol Name="\varnothing" />
+                <util:LatexSymbol Name="\vartriangle" />
+                <util:LatexSymbol Name="\vdots" />
+                <util:LatexSymbol Name="\wp" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Greek.Items">
+                <sys:String>Greek</sys:String>
+                <sys:String>Hebrew</sys:String>
+                <sys:String>Special</sys:String>
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Greek.Greek">
+                <util:LatexSymbol Name="\alpha" />
+                <util:LatexSymbol Name="\beta" />
+                <util:LatexSymbol Name="\chi" />
+                <util:LatexSymbol Name="\delta" />
+                <util:LatexSymbol Name="\epsilon" />
+                <util:LatexSymbol Name="\eta" />
+                <util:LatexSymbol Name="\gamma" />
+                <util:LatexSymbol Name="\iota" />
+                <util:LatexSymbol Name="\kappa" />
+                <util:LatexSymbol Name="\lambda" />
+                <util:LatexSymbol Name="\mu" />
+                <util:LatexSymbol Name="\nu" />
+                <util:LatexSymbol Name="\theta" />
+                <util:LatexSymbol Name="\omega" />
+                <util:LatexSymbol Name="\phi" />
+                <util:LatexSymbol Name="\pi" />
+                <util:LatexSymbol Name="\psi" />
+                <util:LatexSymbol Name="\rho" />
+                <util:LatexSymbol Name="\sigma" />
+                <util:LatexSymbol Name="\tau" />
+                <util:LatexSymbol Name="\varpi" />
+                <util:LatexSymbol Name="\upsilon" />
+                <util:LatexSymbol Name="\xi" />
+                <util:LatexSymbol Name="\zeta" />
+                <util:LatexSymbol Name="\digamma" />
+                <util:LatexSymbol Name="\varepsilon" />
+                <util:LatexSymbol Name="\varkappa" />
+                <util:LatexSymbol Name="\varphi" />
+                <util:LatexSymbol Name="\varrho" />
+                <util:LatexSymbol Name="\varsigma" />
+                <util:LatexSymbol Name="\vartheta" />
+                <util:LatexSymbol Name="\Phi" Id="1" />
+                <util:LatexSymbol Name="\Delta" Id="1" />
+                <util:LatexSymbol Name="\Gamma" Id="1" />
+                <util:LatexSymbol Name="\Lambda" Id="1" />
+                <util:LatexSymbol Name="\Omega" Id="1" />
+                <util:LatexSymbol Name="\Pi" Id="1" />
+                <util:LatexSymbol Name="\Psi" Id="1" />
+                <util:LatexSymbol Name="\Sigma" Id="1" />
+                <util:LatexSymbol Name="\Theta" Id="1" />
+                <util:LatexSymbol Name="\Upsilon" Id="1" />
+                <util:LatexSymbol Name="\Xi" Id="1" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Greek.Hebrew">
+                <util:LatexSymbol Name="\aleph" />
+                <util:LatexSymbol Name="\beth" />
+                <util:LatexSymbol Name="\daleth" />
+                <util:LatexSymbol Name="\gimel" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Greek.Special">
+                <util:LatexSymbol Name="\mathcal{A}" />
+                <util:LatexSymbol Name="\mathbb{A}" />
+                <util:LatexSymbol Name="\mathfrak{A}" />
+                <util:LatexSymbol Name="\mathsf{A}" />
+                <util:LatexSymbol Name="\mathbf{A}" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Frac.Items">
+                <sys:String>Fractions</sys:String>
+                <sys:String>Derivative</sys:String>
+                <sys:String>Others</sys:String>
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Frac.Fractions">
+                <util:LatexSymbol Name="\frac{abc}{xyz}" />
+                <util:LatexSymbol Name="\overline{abc}" />
+                <util:LatexSymbol Name="\underline{abc}" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Frac.Derivative">
+                <util:LatexSymbol Name="\dot{a}" />
+                <util:LatexSymbol Name="\ddot{a}" />
+                <util:LatexSymbol Name="\dot{\dot{A}}" />
+                <util:LatexSymbol Name="\ddot{\ddot{A}}" />
+                <util:LatexSymbol Name="f'" SymbolName="1-derivative" />
+                <util:LatexSymbol Name="f''" SymbolName="2-derivative" />
+                <util:LatexSymbol Name="f^{(n)}" SymbolName="n-derivative" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Frac.Others">
+                <util:LatexSymbol Name="\overleftarrow{abc}" />
+                <util:LatexSymbol Name="\overrightarrow{abc}" />
+                <util:LatexSymbol Name="\overbrace{abc}" />
+                <util:LatexSymbol Name="\underbrace{abc}" />
+                <util:LatexSymbol Name="\widehat{abc}" />
+                <util:LatexSymbol Name="\widetilde{abc}" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Root.Items">
+                <sys:String>Radicals</sys:String>
+                <sys:String>Sub_Supper</sys:String>
+                <sys:String>Accent</sys:String>
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Root.Radicals">
+                <util:LatexSymbol Name="\sqrt{abc}" />
+                <util:LatexSymbol Name="\sqrt[n]{abc}" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Root.Sub_Supper">
+                <util:LatexSymbol Name="X^{1}" SymbolName="super" />    
+                <util:LatexSymbol Name="X_{1}" SymbolName="sub" />
+                <util:LatexSymbol Name="X_{1}^{2}" SymbolName="rightsupersub" />
+                <util:LatexSymbol Name="_{1}^{2}X" SymbolName="leftsupersub" />
+                <util:LatexSymbol Name="\sideset{_1^2}{_3^4}X_a^b" SymbolName="sideset" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Root.Accent">
+                <util:LatexSymbol Name="\bar{a}" />
+                <util:LatexSymbol Name="\acute{a}" />
+                <util:LatexSymbol Name="\breve{a}" />
+                <util:LatexSymbol Name="\grave{a}" />
+                <util:LatexSymbol Name="\check{a}" />
+                <util:LatexSymbol Name="\hat{a}" />
+                <util:LatexSymbol Name="\tilde{a}" />
+                <util:LatexSymbol Name="\vec{a}" />
+                <util:LatexSymbol Name="\bar{\bar{A}}" />
+                <util:LatexSymbol Name="\acute{\acute{A}}" />
+                <util:LatexSymbol Name="\breve{\breve{A}}" />
+                <util:LatexSymbol Name="\grave{\grave{A}}" />
+                <util:LatexSymbol Name="\check{\check{A}}" />
+                <util:LatexSymbol Name="\hat{\hat{A}}" />
+                <util:LatexSymbol Name="\tilde{\tilde{A}}" />
+                <util:LatexSymbol Name="\vec{\vec{A}}" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Limit.Items">
+                <sys:String>Limits</sys:String>
+                <sys:String>Logarithms</sys:String>
+                <sys:String>Bounds</sys:String>
+                <sys:String>Others</sys:String>
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Limit.Limits">
+                <util:LatexSymbol Name="\lim{}" />
+                <util:LatexSymbol Name="\lim_{x \to 0}" Id="1" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Limit.Logarithms">
+                <util:LatexSymbol Name="\log{}" />
+                <util:LatexSymbol Name="\ln{}" />
+                <util:LatexSymbol Name="\lg{}" />
+                <util:LatexSymbol Name="\exp{}" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Limit.Bounds">
+                <util:LatexSymbol Name="\max{}" />
+                <util:LatexSymbol Name="\min{}" />
+                <util:LatexSymbol Name="\liminf{}" />
+                <util:LatexSymbol Name="\limsup{}" />
+                <util:LatexSymbol Name="\sup{}" />
+                <util:LatexSymbol Name="\inf{}" />
+                <util:LatexSymbol Name="\dim{}" />
+                <util:LatexSymbol Name="\ker{}" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Limit.Others">
+                <util:LatexSymbol Name="\arg{}" />
+                <util:LatexSymbol Name="\deg{}" />
+                <util:LatexSymbol Name="\det{}" />
+                <util:LatexSymbol Name="\gcd{}" />
+                <util:LatexSymbol Name="\hom{}" />
+                <util:LatexSymbol Name="\Pr{}" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Function.Items">
+                <sys:String>Trigonometric</sys:String>
+                <sys:String>InverseTrigonometric</sys:String>
+                <sys:String>Hyperbolic</sys:String>
+                <sys:String>InverseHyperbolic</sys:String>
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Function.Trigonometric">
+                <util:LatexSymbol Name="\sin{}" />
+                <util:LatexSymbol Name="\cos{}" />
+                <util:LatexSymbol Name="\tan{}" />
+                <util:LatexSymbol Name="\cot{}" />
+                <util:LatexSymbol Name="\sec{}" />
+                <util:LatexSymbol Name="\csc{}" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Function.InverseTrigonometric">
+                <util:LatexSymbol Name="\sin^{-1}{}" />
+                <util:LatexSymbol Name="\cos^{-1}{}" />
+                <util:LatexSymbol Name="\tan^{-1}{}" />
+                <util:LatexSymbol Name="\cot^{-1}{}" />
+                <util:LatexSymbol Name="\sec^{-1}{}" />
+                <util:LatexSymbol Name="\csc^{-1}{}" />
+                <util:LatexSymbol Name="\arcsin{}" />
+                <util:LatexSymbol Name="\arccos{}" />
+                <util:LatexSymbol Name="\arctan{}" />
+                <util:LatexSymbol Name="\operatorname{arccot{}}" />
+                <util:LatexSymbol Name="\operatorname{arcsec{}}" />
+                <util:LatexSymbol Name="\operatorname{arccsc{}}" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Function.Hyperbolic">
+                <util:LatexSymbol Name="\sinh{}" />
+                <util:LatexSymbol Name="\cosh{}" />
+                <util:LatexSymbol Name="\tanh{}" />
+                <util:LatexSymbol Name="\coth{}" />
+                <util:LatexSymbol Name="\operatorname{sech}" />
+                <util:LatexSymbol Name="\operatorname{csch}" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Function.InverseHyperbolic">
+                <util:LatexSymbol Name="\sinh^{-1}{}" />
+                <util:LatexSymbol Name="\cosh^{-1}{}" />
+                <util:LatexSymbol Name="\tanh^{-1}{}" />
+                <util:LatexSymbol Name="\coth^{-1}{}" />
+                <util:LatexSymbol Name="\operatorname{sech}^{-1}" />
+                <util:LatexSymbol Name="\operatorname{csch}^{-1}" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Integral.Items">
+                <sys:String>Integral</sys:String>
+                <sys:String>Multi_Integral</sys:String>
+                <sys:String>Curvilinear_Integral</sys:String>
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Integral.Integral">
+                <util:LatexSymbol Name="\int" />
+                <util:LatexSymbol Name="\int_{a}^{b}" SymbolName="def-int" />
+                <util:LatexSymbol Name="\int\limits_{a}^{b}" SymbolName="def-int" Id="1" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Integral.Multi_Integral">
+                <util:LatexSymbol Name="\iint" />
+                <util:LatexSymbol Name="\iiint" />
+                <util:LatexSymbol Name="\iiiint" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Integral.Curvilinear_Integral">
+                <util:LatexSymbol Name="\oint" />
+                <util:LatexSymbol Name="\oint_{c}^{}" SymbolName="oint—region" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Sum.Items">
+                <sys:String>Sum</sys:String>
+                <sys:String>Product</sys:String>
+                <sys:String>Union</sys:String>
+                <sys:String>Logic</sys:String>
+                <sys:String>Others</sys:String>
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Sum.Sum">
+                <util:LatexSymbol Name="\sum" />
+                <util:LatexSymbol Name="\sum_{a}^{b} " SymbolName="def-sum" />
+                <util:LatexSymbol Name=" {\textstyle \sum_{a}^{b}}" SymbolName="def-sum" Id="1" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Sum.Product">
+                <util:LatexSymbol Name="\prod" />
+                <util:LatexSymbol Name="\coprod" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Sum.Union">
+                <util:LatexSymbol Name="\bigcap" />
+                <util:LatexSymbol Name="\bigcup" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Sum.Logic">
+                <util:LatexSymbol Name="\bigvee" />
+                <util:LatexSymbol Name="\bigwedge" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Sum.Others">
+                <util:LatexSymbol Name="\biguplus" />
+                <util:LatexSymbol Name="\bigoplus" />
+                <util:LatexSymbol Name="\bigotimes" />
+                <util:LatexSymbol Name="\bigodot" />
+                <util:LatexSymbol Name="\bigsqcup" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Bracket.Items">
+                <sys:String>Brackets</sys:String>
+                <sys:String>Delimiters</sys:String>
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Bracket.Brackets">
+                <util:LatexSymbol Name="\{" SymbolName="leftbracket" />
+                <util:LatexSymbol Name="\}" SymbolName="rightbracket" />
+                <util:LatexSymbol Name="[" SymbolName="leftsquarebracket" />
+                <util:LatexSymbol Name="]" SymbolName="rightsquarebracket" />
+                <util:LatexSymbol Name="\lfloor" />
+                <util:LatexSymbol Name="\rfloor" />
+                <util:LatexSymbol Name="\langle" />
+                <util:LatexSymbol Name="\rangle" />
+                <util:LatexSymbol Name="\lceil" />
+                <util:LatexSymbol Name="\rceil" />
+                <util:LatexSymbol Name="\llcorner" />
+                <util:LatexSymbol Name="\ulcorner" />
+                <util:LatexSymbol Name="\lrcorner" />
+                <util:LatexSymbol Name="\urcorner" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Bracket.Delimiters">
+                <util:LatexSymbol Name="\vert" />
+                <util:LatexSymbol Name="\Vert" Id="1" />
+                <util:LatexSymbol Name="\Uparrow" />
+                <util:LatexSymbol Name="\uparrow" Id="1" />
+                <util:LatexSymbol Name="\Downarrow" />
+                <util:LatexSymbol Name="\downarrow" Id="1" />
+                <util:LatexSymbol Name="\backslash" />
+            </x:Array>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <x:Array Type="{x:Type sys:String}" x:Key="FE.Array.Items">
+                <sys:String>Matrix</sys:String>
+                <sys:String>Array</sys:String>
+            </x:Array>
+            <sys:String x:Key="_inner_matrix" xml:space="preserve">\begin{matrix}&#x0d;&#x0a;    1 &#38; 2 \\ &#x0d;&#x0a;    3 &#38; 4 &#x0d;&#x0a;\end{matrix}</sys:String>
+            <sys:String x:Key="_inner_bmatrix" xml:space="preserve">\begin{bmatrix}&#x0d;&#x0a;    1 &#38; 2 \\ &#x0d;&#x0a;    3 &#38; 4 &#x0d;&#x0a;\end{bmatrix}</sys:String>
+            <sys:String x:Key="_inner_pmatrix" xml:space="preserve">\begin{pmatrix}&#x0d;&#x0a;    1 &#38; 2 \\ &#x0d;&#x0a;    3 &#38; 4 &#x0d;&#x0a;\end{pmatrix}</sys:String>
+            <sys:String x:Key="_inner_vmatrix" xml:space="preserve">\begin{vmatrix}&#x0d;&#x0a;    1 &#38; 2 \\ &#x0d;&#x0a;    3 &#38; 4 &#x0d;&#x0a;\end{vmatrix}</sys:String>
+            <sys:String x:Key="_inner_Bmatrix" xml:space="preserve">\begin{Bmatrix}&#x0d;&#x0a;    1 &#38; 2 \\ &#x0d;&#x0a;    3 &#38; 4 &#x0d;&#x0a;\end{Bmatrix}</sys:String>
+            <sys:String x:Key="_inner_lBmatrix" xml:space="preserve">\left\{\begin{matrix}&#x0d;&#x0a;    1 &#38; 2 \\&#x0d;&#x0a;    3 &#38; 4&#x0d;&#x0a;\end{matrix}\right.</sys:String>
+            <sys:String x:Key="_inner_rBmatrix" xml:space="preserve">\left.\begin{matrix}&#x0d;&#x0a;    1 &#38; 2 \\&#x0d;&#x0a;    3 &#38; 4&#x0d;&#x0a;\end{matrix}\right\}</sys:String>
+            <sys:String x:Key="_inner_cases" xml:space="preserve">\begin{cases}&#x0d;&#x0a;    a &#38; ,\text{ if } x = 1 \\&#x0d;&#x0a;    b &#38; ,\text{ if } x = 2&#x0d;&#x0a;\end{cases}</sys:String>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Array.Matrix">
+                <util:LatexSymbol Name="{StaticResource _inner_matrix}" SymbolName="matrix" />
+                <util:LatexSymbol Name="{StaticResource _inner_bmatrix}" SymbolName="bmatirx" />
+                <util:LatexSymbol Name="{StaticResource _inner_pmatrix}" SymbolName="pmatrix" />
+                <util:LatexSymbol Name="{StaticResource _inner_vmatrix}" SymbolName="vmatrix" />
+                <util:LatexSymbol Name="{StaticResource _inner_Bmatrix}" SymbolName="Bmatrix" Id="1" />
+            </x:Array>
+            <x:Array Type="{x:Type util:LatexSymbol}" x:Key="FE.Array.Array">
+                <util:LatexSymbol Name="{StaticResource _inner_lBmatrix}" SymbolName="lBmatrix" />
+                <util:LatexSymbol Name="{StaticResource _inner_rBmatrix}" SymbolName="rBmatrix" />
+                <util:LatexSymbol Name="{StaticResource _inner_cases}" SymbolName="cases" />
+            </x:Array>
+        </ResourceDictionary>
+
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

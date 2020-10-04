@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Res\sum.ico</ApplicationIcon>
+    <Configurations>Debug;Release;App</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='App|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Utils\KatexParser.cs" />
+    <Compile Remove="Utils\MainViewModel.cs" />
+    <Compile Remove="Utils\MimeParser.cs" />
+    <Compile Remove="Utils\ParserBase.cs" />
+    <Compile Remove="Utils\Raster.cs" />
+    <Compile Remove="Utils\WpfmathParser.cs" />
+    <Compile Remove="winRibbon.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+    <None Remove="MathTex.exe - 快捷方式.lnk" />
+    <None Remove="Res\sum.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="FormulaElement.xaml" />
+    <Page Remove="winRibbon.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon" Version="8.0.0" />
+    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore" Version="3.7.2" />
+    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore.Native.win-x64" Version="3.7.2" />
+    <PackageReference Include="Svg" Version="3.1.1" />
+    <PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="4.4.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Unicons" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MathTexImages\MathTexImages.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Res\sum.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  
+</Project>
