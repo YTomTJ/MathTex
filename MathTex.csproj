@@ -6,6 +6,10 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Res\sum.ico</ApplicationIcon>
     <Configurations>Debug;Release;App</Configurations>
+    <Version>0.2.2</Version>
+    <Authors>YTom</Authors>
+    <Description>A latex formula rendering WPF application with MathJax. Use Fluent.Ribbon for menu UI.</Description>
+    <PackageProjectUrl>https://github.com/YTomTJ/mathtex</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,6 +25,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SKElement.cs" />
+    <Compile Remove="SKPaintSurfaceEventArgs.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove=".gitignore" />
   </ItemGroup>
 
@@ -28,9 +37,10 @@
     <PackageReference Include="Fluent.Ribbon" Version="8.0.0" />
     <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore" Version="3.7.2" />
     <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore.Native.win-x64" Version="3.7.2" />
-    <PackageReference Include="Svg" Version="3.1.1" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.22.0" />
     <PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="4.4.0" />
     <PackageReference Include="MahApps.Metro.IconPacks.Unicons" Version="4.4.0" />
+    <PackageReference Include="Svg" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>

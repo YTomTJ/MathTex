@@ -5,5 +5,8 @@
     <Setting Name="FormulaScale" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="BgColorToClip" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#00FFFFFF</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

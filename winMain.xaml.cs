@@ -1,14 +1,19 @@
 ﻿using Fluent;
+using ImageMagick;
 using MathTex.Images;
+using MathTex.Properties;
 using MathTex.Utils;
-using Svg;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,7 +22,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Brushes = System.Windows.Media.Brushes;
 using Clipboard = System.Windows.Forms.Clipboard;
-using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 
 namespace MathTex {
     /// <summary>
@@ -25,19 +29,19 @@ namespace MathTex {
     /// </summary>
     public partial class winMain : Fluent.RibbonWindow, INotifyPropertyChanged {
 
+        private static readonly int ForceDelayTime = 1500;
         private static readonly int MaxClipboardSize = 10;
         //private string formulaFontName;
         //private double formulaFontSize;
         private List<string> myClipboard = new List<string>();  // Only recent 10 record
 
-        private static Stopwatch stp = new Stopwatch();
+        private string currentSvgText = null;
+        private Tuple<int, int> currentSvgSize;
+        private string currentLatexText = null;
+        private bool IsRendering = false;
 
-        private string currentFormula = null;
-        private string lastText = null;
-        private Svg.SvgDocument currentSvg = null;
-        private Tuple<SvgUnit, SvgUnit> currentSvgSize = null;
-        private System.Drawing.Bitmap currentBitmap = null;
-        bool IsRendering = false;
+        private CancellationTokenSource TaskCancel;
+        private bool IsForcing = false;
 
         public winMain(winSplash splash = null) {
             InitializeComponent();
@@ -46,7 +50,9 @@ namespace MathTex {
             if(splash != null) {
                 splash.InvokeUpdate("Loading application settings ...");
             }
-            _FormulaZoom = Properties.Settings.Default.FormulaScale;
+            _FormulaZoom = Settings.Default.FormulaScale;
+            ClipBgColor.SelectedColor = Settings.Default.BgColorToClip;
+
 
             if(splash != null) {
                 splash.InvokeUpdate("Loading V8 javascipt engine ...");
@@ -78,8 +84,9 @@ namespace MathTex {
         }
 
         private void OnApplicationExit(object sender, ExitEventArgs e) {
-            Properties.Settings.Default.FormulaScale = FormulaZoom;
-            Properties.Settings.Default.Save();
+            Settings.Default.FormulaScale = FormulaZoom;
+            Settings.Default.BgColorToClip = ClipBgColor.SelectedColor.Value;
+            Settings.Default.Save();
         }
 
         #region Formula
@@ -94,6 +101,9 @@ namespace MathTex {
 
             PreConvert();
 
+            var dump = outputMath.Source;
+            outputMath.Source = null;
+
             // Get the formula latex.
             var tex = txtInputFomula.Text.Trim();
             if(Regex.IsMatch(tex, @"^\s*$")) {
@@ -101,36 +111,35 @@ namespace MathTex {
                 return;
             }
 
-            // Record last text for not converting
-            if(lastText == tex) {
-                PostConvert("[REJECT] Text not changed.\nTry angin to force to convert.");
-                lastText = "";
+            // Record last text for not converting.
+            if(!IsForcing && currentLatexText == tex) {
+                PostConvert($"[REJECT] Text not changed.\nTry angin in {ForceDelayTime / 1000.0}s to force to convert.");
+                // Wait sometime for force converting.
+                TaskCancel = new CancellationTokenSource();
+                var x = new Thread(new ThreadStart(ForceConvertEnd));
+                x.IsBackground = true;
+                x.Start();
+                outputMath.Source = dump;
                 return;
             }
-            lastText = tex;
+            // Stop wait for force converting.
+            if(TaskCancel != null)
+                TaskCancel.Cancel();
+            currentLatexText = tex;
+            IsForcing = false;
 
             // Implement mathjax parser.
+            string svgtext;
             try {
-                var formula = MathjaxParser.GetInstance().Run(tex);
-                currentFormula = formula;
+                svgtext = MathjaxParser.GetInstance().Run(tex);
             } catch(Exception e) {
                 PostConvert("[ERROR] Incorrect formula:\n" + e);
                 return;
             }
 
-            // Tranfer to SvgImage.
-            try {
-                var svg = Svg.SvgDocument.FromSvg<Svg.SvgDocument>(currentFormula);
-                currentSvg = svg;
-                currentSvgSize = new Tuple<SvgUnit, SvgUnit>(currentSvg.Width, currentSvg.Height);
-            } catch(Exception e) {
-                PostConvert("[ERROR] Convert or render image failed:\n" + e);
-                return;
-            }
-
             // Render SvgImage to ImageSource for showing
             // TODO: I still wonder how to use async well 
-            SvgRender();
+            Render(svgtext);
         }
 
         private void PreConvert() {
@@ -145,35 +154,69 @@ namespace MathTex {
             IsRendering = false;
         }
 
+        private async void ForceConvertEnd() {
+            IsForcing = true;
+            try {
+                await Task.Delay(ForceDelayTime, TaskCancel.Token);
+                this.Dispatcher.Invoke(() => {
+                    PostConvert("");
+                    IsForcing = false;
+                });
+            } catch {
+            }
+        }
+
+        private void Render(string svgtext) {
+            if(svgtext is null)
+                return;
+            // Tranfer to SvgImage.
+            try {
+                var stp = Stopwatch.StartNew();
+                var bmp = SvgRenderToBitmap(svgtext, FormulaZoom);
+                stp.Stop();
+
+                this.Dispatcher.Invoke(() => {
+                    outputMath.Source = ImageHelper.GetImageSource(bmp);
+                    currentSvgText = svgtext;
+                    currentSvgSize = new Tuple<int, int>(bmp.Width, bmp.Height);
+                    PostConvert($"[INFO] Succeed. (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)", true);
+                });
+            } catch(Exception e) {
+                PostConvert("[ERROR] Render failed:\n" + e);
+                return;
+            }
+        }
+
         /// <summary>
         /// Redner svg to iamge.
         /// </summary>
-        /// <param name="svg"></param>
-        /// <param name="scale"></param>
-        /// <returns></returns>
-        private void SvgRender() {
+        private static System.Drawing.Bitmap SvgRenderToBitmap(string svgtext, double zoom) {
+            if(svgtext is null)
+                return null;
+            if(zoom <= 0)
+                zoom = 1.0;
+            var svg = Svg.SvgDocument.FromSvg<Svg.SvgDocument>(svgtext);
+            svg.Width *= (float)zoom;
+            svg.Height *= (float)zoom;
+            return svg.Draw();
+        }
 
-            if(currentSvg == null || currentSvgSize == null) {
-                return;
-            }
-
-            currentSvg.Width = (float)(currentSvgSize.Item1 * FormulaZoom);
-            currentSvg.Height = (float)(currentSvgSize.Item2 * FormulaZoom);
-            txtOutpuInfo.Text = "Rendering ...";
-
-            try {
-                stp.Start();
-                currentBitmap = currentSvg.Draw();
-                stp.Stop();
-                this.Dispatcher.Invoke(() => {
-                    outputMath.Source = ImageHelper.GetImageSource(currentBitmap);
-                    PostConvert($"\nSucceed. (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)", true);
-                });
-            } catch(Exception e) {
-                this.Dispatcher.Invoke(() => {
-                    PostConvert("[ERROR] Render failed:\n" + e);
-                });
-            }
+        /// <summary>
+        /// Convert SVG to other image type.
+        /// </summary>
+        private static MemoryStream ImagickConvert(string svgtext, int width = 0, int height = 0, 
+            MagickColor color = null, MagickFormat type = MagickFormat.Png) {
+            if(svgtext is null)
+                return null;
+            var set = new MagickReadSettings();
+            set.Width = width;
+            set.Height = height;
+            set.BackgroundColor = color ?? MagickColors.Transparent;
+            set.Format = MagickFormat.Svg;
+            var svg = new MagickImage(Encoding.UTF8.GetBytes(svgtext), set);
+            var ms = new MemoryStream();
+            svg.Write(ms, type);
+            return ms;
         }
 
         public ICommand cConvertFormula { get => new ConditionCommand(ConvertFormula); }
@@ -390,9 +433,10 @@ namespace MathTex {
         public void InputClear() {
             txtInputFomula.Clear();
             txtOutpuInfo.Clear();
-            currentBitmap = null;
-            currentFormula = null;
-            currentSvg = null;
+            currentSvgText = null;
+            currentSvgSize = null;
+            currentLatexText = null;
+            outputMath.Source = null;
             txtInputFomula.Focus();
         }
 
@@ -447,16 +491,19 @@ namespace MathTex {
 
         #region Save Operations
         public void SaveToPng() {
-            if(currentBitmap is null) {
+            if(currentSvgText is null) {
                 txtOutpuInfo.Text = $"[ERROR] Empty result now.";
                 return;
             }
-            var dialog = new SaveFileDialog();
+            var dialog = new System.Windows.Forms.SaveFileDialog();
             dialog.Filter = "Portable Network Graphics (*.png)|*.png";
             if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 try {
-                    currentBitmap.Save(dialog.FileName);
-                    txtOutpuInfo.Text = $"[SUCCEED] Save image to {dialog.FileName}.";
+                    var stp = Stopwatch.StartNew();
+                    var ms = ImagickConvert(currentSvgText, currentSvgSize.Item1, currentSvgSize.Item2, null, MagickFormat.Png);
+                    stp.Stop();
+                    Bitmap.FromStream(ms).Save(dialog.FileName);
+                    txtOutpuInfo.Text = $"[SUCCEED] Save image to {dialog.FileName}. (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)";
                 } catch(Exception err) {
                     txtOutpuInfo.Text = $"[ERROR] Save to PNG failed:\n {err}";
                 }
@@ -464,15 +511,16 @@ namespace MathTex {
         }
 
         public void SaveToSvg() {
-            if(currentSvg is null) {
+            if(currentSvgText is null) {
                 txtOutpuInfo.Text = $"[ERROR] Empty result now.";
                 return;
             }
-            var dialog = new SaveFileDialog();
+            var dialog = new System.Windows.Forms.SaveFileDialog();
             dialog.Filter = "Scalable Vector Graphics (*.svg)|*.svg";
             if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 try {
-                    currentSvg.Write(dialog.FileName);
+                    var svg = Svg.SvgDocument.FromSvg<Svg.SvgDocument>(currentSvgText);
+                    svg.Write(dialog.FileName);
                     txtOutpuInfo.Text = $"[SUCCEED] Save image to {dialog.FileName}.";
                 } catch(Exception err) {
                     txtOutpuInfo.Text = $"[ERROR] Save to SVG failed:\n {err}";
@@ -481,17 +529,33 @@ namespace MathTex {
         }
 
         public void CopyToClipboard() {
-            if(currentBitmap is null) {
+            if(currentSvgText is null) {
                 txtOutpuInfo.Text = $"[ERROR] Empty result now.";
                 return;
             }
             try {
-                // TODO: image need modify
-                Clipboard.SetImage(currentBitmap);
-                txtOutpuInfo.Text = $"[SUCCEED] Copyied image to clipboard .";
+                var stp = Stopwatch.StartNew();
+                var ms = ImagickConvert(currentSvgText, currentSvgSize.Item1, currentSvgSize.Item2, ColorToMagick(ClipBgColor.SelectedColor.Value), MagickFormat.Png);
+                stp.Stop();
+                Clipboard.SetImage(Bitmap.FromStream(ms));
+                txtOutpuInfo.Text = $"[SUCCEED] Copyied image to clipboard . (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)";
             } catch(Exception err) {
                 txtOutpuInfo.Text = $"[ERROR] Save to PNG failed:\n {err}";
             }
+        }
+
+        private static MagickColor ColorToMagick(System.Drawing.Color color) {
+            return new MagickColor((ushort)(color.R * (ushort.MaxValue / byte.MaxValue)),
+                (ushort)(color.G * 1.0 * (ushort.MaxValue / byte.MaxValue)),
+                (ushort)(color.B * 1.0 * (ushort.MaxValue / byte.MaxValue)),
+                (ushort)(color.A * 1.0 * (ushort.MaxValue / byte.MaxValue)));
+        }
+
+        private static MagickColor ColorToMagick(System.Windows.Media.Color color) {
+            return new MagickColor((ushort)(color.R * (ushort.MaxValue / byte.MaxValue)),
+                (ushort)(color.G * 1.0 * (ushort.MaxValue / byte.MaxValue)),
+                (ushort)(color.B * 1.0 * (ushort.MaxValue / byte.MaxValue)),
+                (ushort)(color.A * 1.0 * (ushort.MaxValue / byte.MaxValue)));
         }
 
         public ICommand cSaveToPng { get => new ConditionCommand(SaveToPng); }
@@ -511,7 +575,7 @@ namespace MathTex {
             // Notify new zoom
             this.PropertyChanged += (s, e) => {
                 if(e.PropertyName == "FormulaZoom") {
-                    SvgRender();
+                    Render(currentSvgText);
                 }
             };
         }
@@ -550,7 +614,7 @@ namespace MathTex {
             FormulaZoom = e.NewValue;
         }
         #endregion FormulaZoom
-        #endregion Commands & Notification
 
+        #endregion Commands & Notification
     }
 }

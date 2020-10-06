@@ -4,6 +4,7 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:system="clr-namespace:System;assembly=mscorlib"
+                     xmlns:local="clr-namespace:MathTex"
                      xmlns:util="clr-namespace:MathTex.Utils"
                      xmlns:img="clr-namespace:MathTex.Images;assembly=MathTexImages"
                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -75,6 +76,7 @@
                     <system:String x:Key="UI.Main.Export.PNG">PNG</system:String>
                     <system:String x:Key="UI.Main.Export.SVG">SVG</system:String>
                     <system:String x:Key="UI.Main.Export.Clip">Clipboard</system:String>
+                    <system:String x:Key="UI.Main.Export.Color">BgColor</system:String>
                     <system:String x:Key="UI.Main.Operation">Operations</system:String>
                     <system:String x:Key="UI.Main.Operation.Convert">Convert</system:String>
 
@@ -241,11 +243,14 @@
                                    Icon="{img:UriImage '/icons/filetypes/png/svg.png'}"
                                    LargeIcon="{img:UriImage '/icons/filetypes/png/svg.png'}" 
                                    Command="{Binding cSaveToSvg}"/>
-                    <Fluent:Button Header="{StaticResource UI.Main.Export.Clip}"
+                    <Fluent:SplitButton Header="{StaticResource UI.Main.Export.Clip}"
                                    SizeDefinition="Large, Large, Middle" 
                                    Icon="{img:UriImage '/icons/colorline/clipboard.png'}"
                                    LargeIcon="{img:UriImage '/icons/colorline/clipboard.png'}" 
-                                   Command="{Binding cCopyToClipboard}"/>
+                                   Command="{Binding cCopyToClipboard}">
+                        <Fluent:ColorGallery x:Name="ClipBgColor" SelectedColor="Transparent" />
+                    </Fluent:SplitButton>
+                    <Separator/>
                 </Fluent:RibbonGroupBox> 
 
                 <Fluent:RibbonGroupBox Header="{StaticResource UI.Main.Operation}">
@@ -253,7 +258,7 @@
                                    SizeDefinition="Large, Large, Middle" 
                                    Icon="{img:UriImage '/icons/colorline/refresh.png'}"
                                    LargeIcon="{img:UriImage '/icons/colorline/refresh.png'}" 
-                                   Command="{Binding cConvertFormula}"/>
+                                   Command="{Binding cConvertFormula}" />
                     <Separator/>
                 </Fluent:RibbonGroupBox>
 

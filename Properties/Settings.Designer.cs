@@ -34,5 +34,17 @@ namespace MathTex.Properties {
                 this["FormulaScale"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#00FFFFFF")]
+        public global::System.Windows.Media.Color BgColorToClip {
+            get {
+                return ((global::System.Windows.Media.Color)(this["BgColorToClip"]));
+            }
+            set {
+                this["BgColorToClip"] = value;
+            }
+        }
     }
 }
