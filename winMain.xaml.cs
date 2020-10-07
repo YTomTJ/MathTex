@@ -3,6 +3,7 @@ using ImageMagick;
 using MathTex.Images;
 using MathTex.Properties;
 using MathTex.Utils;
+using Svg;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -227,13 +229,14 @@ namespace MathTex {
 
             var rgb = (RibbonGroupBox)this.FindName("ribGroupFormula");
            
-            foreach(var label in MathTex.Images.SymbolImages.GetInstance().SymbolGroups) {
+            foreach(var label in MathTex.Images.SymbolHelper.GetInstance().SymbolGroups) {
                 // Add button
                 var button = new Fluent.DropDownButton();
                 button.Header = label.Name;
                 button.SizeDefinition = "Large, Large, Middle";
                 button.LargeIcon = new UriImage($"/icons/mathtex/{label.IconName}.png").GetImageSource();
                 button.Icon = button.LargeIcon;
+                button.ClosePopupOnMouseDown = true;
                 rgb.Items.Add(button);
 
                 var menu = new ScrollViewer();
@@ -248,6 +251,7 @@ namespace MathTex {
 
                     // Make new group of symbils
                     var group = new WrapPanel();
+                    group.Margin = new Thickness(4);
                     group.Tag = item.ToString();
                     
                     foreach(var sym in item.Symbols) {
@@ -255,11 +259,12 @@ namespace MathTex {
                         _symbutton.Style = FindResource("FormulaItemStyle") as Style;
                         _symbutton.Content = new System.Windows.Controls.Image() {
                             Stretch = Stretch.None,
-                            Source = new ImageSourceConverter().ConvertFrom(sym.PngData) as BitmapSource,
+                            Source = ImageHelper.GetImageSource(sym.Image),
                         };
-                        _symbutton.ToolTip = sym.Name;
+                        _symbutton.ToolTip = sym.Sample;
                         _symbutton.Tag = sym;
-                        _symbutton.Click += _symbutton_Click;
+                        _symbutton.Margin = new Thickness(2);
+                        _symbutton.Click += InsertSymbol_Click;
                         ;
                         group.Children.Add(_symbutton);
                     }
@@ -274,14 +279,16 @@ namespace MathTex {
             }
         }
 
-        private void _symbutton_Click(object sender, RoutedEventArgs e) {
+        private void InsertSymbol_Click(object sender, RoutedEventArgs e) {
             if(IsRendering)
                 return;
+            // TODO: Symbol insert index
             var sym = (sender as System.Windows.Controls.Button).Tag as LatexSymbol;
             var start = txtInputFomula.SelectionStart;
-            txtInputFomula.Text = txtInputFomula.Text.Insert(start, sym.Name);
+            var ins = sym.Expression ?? sym.Sample;
+            txtInputFomula.Text = txtInputFomula.Text.Insert(start, ins);
+            txtInputFomula.SelectionStart = start + ins.Length;
             txtInputFomula.Focus();
-            txtInputFomula.SelectionStart = start + sym.Name.Length;
         }
         #endregion Symbol Operation
         #endregion Formula

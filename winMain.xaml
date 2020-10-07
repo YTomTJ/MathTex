@@ -77,7 +77,7 @@
                     <system:String x:Key="UI.Main.Export.SVG">SVG</system:String>
                     <system:String x:Key="UI.Main.Export.Clip">Clipboard</system:String>
                     <system:String x:Key="UI.Main.Export.Color">BgColor</system:String>
-                    <system:String x:Key="UI.Main.Operation">Operations</system:String>
+                    <system:String x:Key="UI.Main.Operation">Action</system:String>
                     <system:String x:Key="UI.Main.Operation.Convert">Convert</system:String>
 
                     <system:String x:Key="UI.Formula">Formula</system:String>
@@ -250,7 +250,6 @@
                                    Command="{Binding cCopyToClipboard}">
                         <Fluent:ColorGallery x:Name="ClipBgColor" SelectedColor="Transparent" />
                     </Fluent:SplitButton>
-                    <Separator/>
                 </Fluent:RibbonGroupBox> 
 
                 <Fluent:RibbonGroupBox Header="{StaticResource UI.Main.Operation}">
@@ -267,6 +266,14 @@
             <Fluent:RibbonTabItem Header="{StaticResource UI.Formula}" KeyTip="A" Margin="0,-1,0,0" Width="64">
                 <Fluent:RibbonGroupBox x:Name="ribGroupFormula" Header="{StaticResource UI.Formula.Design}">
                     <!--TODO: Add by code-->
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="{StaticResource UI.Main.Operation}">
+                    <Fluent:Button Header="{StaticResource UI.Main.Operation.Convert}"
+                                   SizeDefinition="Large, Large, Middle" 
+                                   Icon="{img:UriImage '/icons/colorline/refresh.png'}"
+                                   LargeIcon="{img:UriImage '/icons/colorline/refresh.png'}" 
+                                   Command="{Binding cConvertFormula}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
