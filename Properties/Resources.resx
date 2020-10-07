@@ -119,9 +119,12 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="liteDOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Res\mathjax\adaptors\liteDOM.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+    <value>..\mathjax\adaptors\liteDOM.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
-  <data name="tex_svg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Res\mathjax\tex-svg.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  <data name="tex_svg_full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\mathjax\tex-svg-full.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="unicode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\mathjax\input\tex\extensions\unicode.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
 </root>

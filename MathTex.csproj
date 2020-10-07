@@ -4,9 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Res\sum.ico</ApplicationIcon>
+    <ApplicationIcon>sum.ico</ApplicationIcon>
     <Configurations>Debug;Release;App</Configurations>
-    <Version>0.2.2</Version>
+    <Version>0.2.5</Version>
     <Authors>YTom</Authors>
     <Description>A latex formula rendering WPF application with MathJax. Use Fluent.Ribbon for menu UI.</Description>
     <PackageProjectUrl>https://github.com/YTomTJ/mathtex</PackageProjectUrl>
@@ -25,12 +25,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="SKElement.cs" />
-    <Compile Remove="SKPaintSurfaceEventArgs.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="MathTex.exe - 快捷方式.lnk" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,10 +41,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MathTexImages\MathTexImages.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Res\sum.ico" />
   </ItemGroup>
 
   <ItemGroup>

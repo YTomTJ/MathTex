@@ -67,14 +67,16 @@
                     <system:String x:Key="UI.BackstageMenu.Exit">Exit</system:String>
 
                     <system:String x:Key="UI.Main">Home</system:String>
-                    <system:String x:Key="UI.Main.Clip">Paste</system:String>
+                    <system:String x:Key="UI.Main.Clip">Editor</system:String>
                     <system:String x:Key="UI.Main.Clip.Paste">Paste</system:String>
                     <system:String x:Key="UI.Main.Clip.Copy">Copy</system:String>
                     <system:String x:Key="UI.Main.Clip.Cut">Cut</system:String>
                     <system:String x:Key="UI.Main.Clip.Clear">Clear</system:String>
                     <system:String x:Key="UI.Main.Export">Export</system:String>
                     <system:String x:Key="UI.Main.Export.PNG">PNG</system:String>
+                    <system:String x:Key="UI.Main.Export.JPG">JPG</system:String>
                     <system:String x:Key="UI.Main.Export.SVG">SVG</system:String>
+                    <system:String x:Key="UI.Main.Export.PDF">PDF</system:String>
                     <system:String x:Key="UI.Main.Export.Clip">Clipboard</system:String>
                     <system:String x:Key="UI.Main.Export.Color">BgColor</system:String>
                     <system:String x:Key="UI.Main.Operation">Action</system:String>
@@ -238,6 +240,19 @@
                                    LargeIcon="{img:UriImage '/icons/filetypes/png/png.png'}"
                                    SizeDefinition="Large, Large, Middle"
                                    Command="{Binding cSaveToPng}" />
+                    <Fluent:SplitButton Header="{StaticResource UI.Main.Export.JPG}"
+                                   SizeDefinition="Large, Large, Middle" 
+                                   Icon="{img:UriImage '/icons/filetypes/png/jpg.png'}"
+                                   LargeIcon="{img:UriImage '/icons/filetypes/png/jpg.png'}" 
+                                   Command="{Binding cSaveToJpg}">
+                        <Fluent:ColorGallery x:Name="JpgBgColor" SelectedColor="Transparent" />
+                    </Fluent:SplitButton>
+                    <Fluent:Button Header="{StaticResource UI.Main.Export.PDF}"
+                                   IsEnabled="False"
+                                   SizeDefinition="Large, Large, Middle" 
+                                   Icon="{img:UriImage '/icons/filetypes/png/pdf.png'}"
+                                   LargeIcon="{img:UriImage '/icons/filetypes/png/pdf.png'}" 
+                                   Command="{Binding cSaveToPdf}"/>
                     <Fluent:Button Header="{StaticResource UI.Main.Export.SVG}"
                                    SizeDefinition="Large, Large, Middle" 
                                    Icon="{img:UriImage '/icons/filetypes/png/svg.png'}"
@@ -258,7 +273,6 @@
                                    Icon="{img:UriImage '/icons/colorline/refresh.png'}"
                                    LargeIcon="{img:UriImage '/icons/colorline/refresh.png'}" 
                                    Command="{Binding cConvertFormula}" />
-                    <Separator/>
                 </Fluent:RibbonGroupBox>
 
             </Fluent:RibbonTabItem>
@@ -287,7 +301,38 @@
 
         <!--region #DisplayFormula-->
         <Grid Grid.Row="1" Margin="1.5,2,1.5,1" Background="#FFF3F0F0" >
-            <Image x:Name="outputMath" Stretch="None" />
+
+            <TabControl x:Name="outputRegion" Background="Transparent">
+                <TabItem Header="Image">
+                    <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                  HorizontalContentAlignment="Center"
+                                  VerticalContentAlignment="Center"
+                                  HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
+                        <Canvas Width="{Binding ActualWidth, ElementName=outputMath}" 
+                                Height="{Binding ActualHeight, ElementName=outputMath}" >
+                            <Canvas.Background>
+                                <VisualBrush>
+                                    <VisualBrush.Visual>
+                                        <Image x:Name="outputMath" Stretch="None">
+                                            <!--Parsed formula image-->
+                                        </Image>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Canvas.Background>
+                        </Canvas>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="MML" Padding="0">
+                    <TextBox x:Name="outpuMML" Margin="0"
+                             TextWrapping="Wrap" AcceptsReturn="True" 
+                             ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                             FontSize="12" IsReadOnly="True"
+                             Padding="3" Background="#00FFFFFF"
+                             BorderBrush="DarkGray" BorderThickness="0">
+                    </TextBox>
+                </TabItem>
+            </TabControl>
         </Grid>
         <!--endregion #DisplayFormula-->
 

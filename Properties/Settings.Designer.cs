@@ -37,13 +37,25 @@ namespace MathTex.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#00FFFFFF")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
         public global::System.Windows.Media.Color BgColorToClip {
             get {
                 return ((global::System.Windows.Media.Color)(this["BgColorToClip"]));
             }
             set {
                 this["BgColorToClip"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
+        public global::System.Windows.Media.Color BgColorToJpg {
+            get {
+                return ((global::System.Windows.Media.Color)(this["BgColorToJpg"]));
+            }
+            set {
+                this["BgColorToJpg"] = value;
             }
         }
     }

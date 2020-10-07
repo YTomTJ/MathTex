@@ -54,6 +54,7 @@ namespace MathTex {
             }
             _FormulaZoom = Settings.Default.FormulaScale;
             ClipBgColor.SelectedColor = Settings.Default.BgColorToClip;
+            JpgBgColor.SelectedColor = Settings.Default.BgColorToJpg;
 
 
             if(splash != null) {
@@ -75,7 +76,7 @@ namespace MathTex {
             if(splash != null) {
                 splash.InvokeUpdate("Loading latex resources ...");
             }
-            LoadElement();
+            LoadSymbols();
 
             if(splash != null) {
                 splash.InvokeUpdate("Show window ...");
@@ -88,6 +89,7 @@ namespace MathTex {
         private void OnApplicationExit(object sender, ExitEventArgs e) {
             Settings.Default.FormulaScale = FormulaZoom;
             Settings.Default.BgColorToClip = ClipBgColor.SelectedColor.Value;
+            Settings.Default.BgColorToJpg = JpgBgColor.SelectedColor.Value; 
             Settings.Default.Save();
         }
 
@@ -131,13 +133,14 @@ namespace MathTex {
             IsForcing = false;
 
             // Implement mathjax parser.
-            string svgtext;
+            string svgtext, mmltext;
             try {
-                svgtext = MathjaxParser.GetInstance().Run(tex);
+                svgtext = MathjaxParser.GetInstance().Run(tex, out mmltext);
             } catch(Exception e) {
                 PostConvert("[ERROR] Incorrect formula:\n" + e);
                 return;
             }
+            outpuMML.Text = mmltext;
 
             // Render SvgImage to ImageSource for showing
             // TODO: I still wonder how to use async well 
@@ -181,7 +184,7 @@ namespace MathTex {
                     outputMath.Source = ImageHelper.GetImageSource(bmp);
                     currentSvgText = svgtext;
                     currentSvgSize = new Tuple<int, int>(bmp.Width, bmp.Height);
-                    PostConvert($"[INFO] Succeed. (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)", true);
+                    PostConvert($"[INFO] Succeed. (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)");
                 });
             } catch(Exception e) {
                 PostConvert("[ERROR] Render failed:\n" + e);
@@ -225,7 +228,7 @@ namespace MathTex {
         #endregion Formula Operation
 
         #region Symbol Operation
-        private void LoadElement() {
+        private void LoadSymbols() {
 
             var rgb = (RibbonGroupBox)this.FindName("ribGroupFormula");
            
@@ -444,6 +447,7 @@ namespace MathTex {
             currentSvgSize = null;
             currentLatexText = null;
             outputMath.Source = null;
+            outpuMML.Text = "";
             txtInputFomula.Focus();
         }
 
@@ -517,6 +521,47 @@ namespace MathTex {
             }
         }
 
+        public void SaveToJpg() {
+            if(currentSvgText is null) {
+                txtOutpuInfo.Text = $"[ERROR] Empty result now.";
+                return;
+            }
+            var dialog = new System.Windows.Forms.SaveFileDialog();
+            dialog.Filter = "Joint Photographic Experts Group (*.jpg)|*.jpg";
+            if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                try {
+                    var stp = Stopwatch.StartNew();
+                    var ms = ImagickConvert(currentSvgText, currentSvgSize.Item1, currentSvgSize.Item2, ColorToMagick(JpgBgColor.SelectedColor.Value), MagickFormat.Jpg);
+                    stp.Stop();
+                    Bitmap.FromStream(ms).Save(dialog.FileName);
+                    txtOutpuInfo.Text = $"[SUCCEED] Save image to {dialog.FileName}. (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)";
+                } catch(Exception err) {
+                    txtOutpuInfo.Text = $"[ERROR] Save to JPG failed:\n {err}";
+                }
+            }
+        }
+
+        // TODO: SaveToPdf need fix
+        public void SaveToPdf() {
+            if(currentSvgText is null) {
+                txtOutpuInfo.Text = $"[ERROR] Empty result now.";
+                return;
+            }
+            var dialog = new System.Windows.Forms.SaveFileDialog();
+            dialog.Filter = "Portable Document Format (*.pdf)|*.pdf";
+            if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                try {
+                    var stp = Stopwatch.StartNew();
+                    var ms = ImagickConvert(currentSvgText, currentSvgSize.Item1, currentSvgSize.Item2, null, MagickFormat.Pdf);
+                    stp.Stop();
+                    Bitmap.FromStream(ms).Save(dialog.FileName);
+                    txtOutpuInfo.Text = $"[SUCCEED] Save image to {dialog.FileName}. (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)";
+                } catch(Exception err) {
+                    txtOutpuInfo.Text = $"[ERROR] Save to PDF failed:\n {err}";
+                }
+            }
+        }
+
         public void SaveToSvg() {
             if(currentSvgText is null) {
                 txtOutpuInfo.Text = $"[ERROR] Empty result now.";
@@ -540,14 +585,19 @@ namespace MathTex {
                 txtOutpuInfo.Text = $"[ERROR] Empty result now.";
                 return;
             }
-            try {
-                var stp = Stopwatch.StartNew();
-                var ms = ImagickConvert(currentSvgText, currentSvgSize.Item1, currentSvgSize.Item2, ColorToMagick(ClipBgColor.SelectedColor.Value), MagickFormat.Png);
-                stp.Stop();
-                Clipboard.SetImage(Bitmap.FromStream(ms));
-                txtOutpuInfo.Text = $"[SUCCEED] Copyied image to clipboard . (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)";
-            } catch(Exception err) {
-                txtOutpuInfo.Text = $"[ERROR] Save to PNG failed:\n {err}";
+            if(outputRegion.SelectedIndex == 0) {
+                try {
+                    var stp = Stopwatch.StartNew();
+                    var ms = ImagickConvert(currentSvgText, currentSvgSize.Item1, currentSvgSize.Item2, ColorToMagick(ClipBgColor.SelectedColor.Value), MagickFormat.Png);
+                    stp.Stop();
+                    Clipboard.SetImage(Bitmap.FromStream(ms));
+                    txtOutpuInfo.Text = $"[SUCCEED] Copyied image to clipboard . (using {stp.ElapsedTicks * 1000F / Stopwatch.Frequency} ms)";
+                } catch(Exception err) {
+                    txtOutpuInfo.Text = $"[ERROR] Copy image to clipboard failed:\n {err}";
+                }
+            } else if(outputRegion.SelectedIndex == 1) {
+                Clipboard.SetText(outpuMML.Text);
+                txtOutpuInfo.Text = $"[SUCCEED] Copyied MML to clipboard.";
             }
         }
 
@@ -567,6 +617,8 @@ namespace MathTex {
 
         public ICommand cSaveToPng { get => new ConditionCommand(SaveToPng); }
         public ICommand cSaveToSvg { get => new ConditionCommand(SaveToSvg); }
+        public ICommand cSaveToJpg { get => new ConditionCommand(SaveToJpg); }
+        public ICommand cSaveToPdf { get => new ConditionCommand(SaveToPdf); }
         public ICommand cCopyToClipboard { get => new ConditionCommand(CopyToClipboard); }
         #endregion Save Operations
 

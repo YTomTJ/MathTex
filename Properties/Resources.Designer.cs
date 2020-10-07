@@ -70,11 +70,20 @@ namespace MathTex.Properties {
         }
         
         /// <summary>
-        ///   查找类似 !function(t){var Q={};function e(T){if(Q[T])return Q[T].exports;var r=Q[T]={i:T,l:!1,exports:{}};return t[T].call(r.exports,r,r.exports,e),r.l=!0,r.exports}e.m=t,e.c=Q,e.d=function(t,Q,T){e.o(t,Q)||Object.defineProperty(t,Q,{enumerable:!0,get:T})},e.r=function(t){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(t,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(t,&quot;__esModule&quot;,{value:!0})},e.t=function(t,Q){if(1&amp;Q&amp;&amp;(t=e(t)),8&amp;Q)return t;if(4&amp;Q&amp;&amp;&quot;object&quot;==typeof t&amp;&amp;t&amp;&amp;t.__esModu [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 !function(t){var e={};function Q(r){if(e[r])return e[r].exports;var T=e[r]={i:r,l:!1,exports:{}};return t[r].call(T.exports,T,T.exports,Q),T.l=!0,T.exports}Q.m=t,Q.c=e,Q.d=function(t,e,r){Q.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},Q.r=function(t){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(t,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(t,&quot;__esModule&quot;,{value:!0})},Q.t=function(t,e){if(1&amp;e&amp;&amp;(t=Q(t)),8&amp;e)return t;if(4&amp;e&amp;&amp;&quot;object&quot;==typeof t&amp;&amp;t&amp;&amp;t.__esModu [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        public static string tex_svg {
+        public static string tex_svg_full {
             get {
-                return ResourceManager.GetString("tex_svg", resourceCulture);
+                return ResourceManager.GetString("tex_svg_full", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 !function(t){var e={};function a(n){if(e[n])return e[n].exports;var o=e[n]={i:n,l:!1,exports:{}};return t[n].call(o.exports,o,o.exports,a),o.l=!0,o.exports}a.m=t,a.c=e,a.d=function(t,e,n){a.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:n})},a.r=function(t){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(t,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(t,&quot;__esModule&quot;,{value:!0})},a.t=function(t,e){if(1&amp;e&amp;&amp;(t=a(t)),8&amp;e)return t;if(4&amp;e&amp;&amp;&quot;object&quot;==typeof t&amp;&amp;t&amp;&amp;t.__esModu [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string unicode {
+            get {
+                return ResourceManager.GetString("unicode", resourceCulture);
             }
         }
     }
